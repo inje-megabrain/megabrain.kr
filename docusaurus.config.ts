@@ -3,27 +3,19 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Megabrain',
+  tagline: '인제대학교 컴퓨터공학과 웹 개발 동아리 메가브레인',
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
+  url: 'https://megabrain.kr',
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'inje-megabrain',
+  projectName: 'megabrain.kr',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'ko',
     locales: ['ko'],
@@ -34,18 +26,18 @@ const config: Config = {
       'classic',
       {
         docs: {
+          path: './docs',
+          routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+              'https://github.com/inje-megabrain/megabrain.kr/blob/main/docs/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+              'https://github.com/inje-megabrain/megabrain.kr/blob/main/blog/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -58,7 +50,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'Megabrain',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
@@ -66,14 +58,28 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'slider',
           position: 'left',
-          label: 'Tutorial',
+          label: '소개',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
+          to: '/history',
+          label: '연혁',
+          position: 'left'
+        },
+        {
+          to: '/activities',
+          label: '활동',
+          position: 'left',
+        },
+        {
+          to: '/blog',
+          label: '블로그',
+          position: 'left',
+        },
+        {
+          href: 'https://github.com/inje-megabrain',
+          label: 'Github',
           position: 'right',
         },
       ],
@@ -82,33 +88,16 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: '문서',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: '소개',
+              to: '/intro',
             },
           ],
         },
         {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
+          title: '커뮤니티',
           items: [
             {
               label: 'Blog',
@@ -116,12 +105,12 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/inje-megabrain',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Megabrain.kr, Inc. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
