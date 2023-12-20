@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Megabrain',
   tagline: '인제대학교 컴퓨터공학과 웹 개발 동아리 메가브레인',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon/favicon.ico',
 
   url: 'https://megabrain.kr',
   baseUrl: '/',
@@ -49,11 +49,16 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
+    docs: {
+      sidebar: {
+        autoCollapseCategories: true,
+      }
+    },
     navbar: {
       title: 'Megabrain',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/icons/logo.svg',
       },
       items: [
         {
@@ -63,7 +68,7 @@ const config: Config = {
           label: '소개',
         },
         {
-          to: '/history',
+          to: '/histories',
           label: '연혁',
           position: 'left'
         },
@@ -73,8 +78,8 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: '/blog',
-          label: '블로그',
+          to: '/recruit',
+          label: '모집',
           position: 'left',
         },
         {
