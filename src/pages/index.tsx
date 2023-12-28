@@ -21,11 +21,10 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+        title={`인제대학교 최고의 컴퓨터공학과 학술 동아리`}
+        description="인제대학교에서 학우분들께 도움이 되는 단체가 되기 위해 노력하고 있습니다. <head />">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
