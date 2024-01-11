@@ -80,13 +80,13 @@ jobs:
       - name: Update Kubernetes resource
         run: |
           cd apps/megabrain-site/overlays/dev
-          kustomize edit set image <image name:version tage here>
+          kustomize edit set image ghcr.io/inje-megabrain/megabrain.kr:lastest
           cat kustomization.yaml
 
       - name: Commit and push changes
         run: |
           cd apps/megabrain-site
-          git config --global user.name <Your Git Username>
-          git config --global user.email <Your Git Email>
+          git config --global user.name puleugo
+          git config --global user.email puleugo@gmail.com
           git commit -am "Update k8s image"
           git push -u origin apps/megabrain-site
