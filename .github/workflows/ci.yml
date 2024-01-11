@@ -60,3 +60,33 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          
+  kubernetes-resource-update:
+    name: Kubernetes resource update
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Checkout kustomize repo
+        uses: actions/checkout@v2
+        with:
+          repository: inje-megabrain/megabrain-infra-apps
+          ref: apps/megabrain-site
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+      - name: Update Kubernetes resource
+        run: |
+          cd apps/megabrain-site/overlays/dev
+          kustomize edit set image ghcr.io/inje-megabrain/megabrain.kr:lastest
+          cat kustomization.yaml
+
+      - name: Commit and push changes
+        run: |
+          cd apps/megabrain-site
+          git config --global user.name puleugo
+          git config --global user.email puleugo@gmail.com
+          git commit -am "Update k8s image"
+          git push -u origin apps/megabrain-site
