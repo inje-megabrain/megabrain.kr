@@ -83,6 +83,12 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: '/megaton',
+          label: '메가톤 2024',
+          className: "nav-megaton",
+          position: 'left',
+        },
+        {
           href: 'https://github.com/inje-megabrain',
           label: 'Github',
           position: 'right',
