@@ -30,8 +30,8 @@
 }
 
 .navbar-highlight {
-  color: #496EF6; /* highligth  */
-
+  color: #498ef6;
+  font-weight: bold;
   [data-theme='dark'] & {
     color: #f6e05e;
   }
