@@ -62,10 +62,9 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'slider',
-          position: 'left',
+          to: '/histories',
           label: '소개',
+          position: 'left',
         },
         {
           to: '/histories',
