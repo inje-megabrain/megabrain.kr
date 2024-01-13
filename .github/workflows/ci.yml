@@ -55,12 +55,13 @@ jobs:
         with:
           context: .
           push: true
+          target: production
           platform: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          
+
   kubernetes-resource-update:
     name: Kubernetes resource update
     runs-on: ubuntu-latest

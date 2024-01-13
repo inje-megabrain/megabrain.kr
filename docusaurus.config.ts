@@ -21,6 +21,20 @@ const config: Config = {
     locales: ['ko'],
   },
 
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            from: '/megaton',
+            to: '/activities/megathon/2024',
+          },
+        ],
+      },
+    ]
+  ],
+
   presets: [
     [
       'classic',
