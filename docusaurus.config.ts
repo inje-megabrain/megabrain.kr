@@ -51,7 +51,7 @@ const config: Config = {
     image: 'img/docusaurus-social-card.jpg',
     docs: {
       sidebar: {
-        autoCollapseCategories: true,
+        autoCollapseCategories: false,
       }
     },
     navbar: {
