@@ -83,7 +83,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: '/megathon',
+          to: '/activities/megathon/2024',
           label: '메가톤 2024',
           className: "navbar-highlight",
           position: 'left',
