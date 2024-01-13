@@ -83,9 +83,9 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: '/megaton',
+          to: '/megathon',
           label: '메가톤 2024',
-          className: "nav-megaton",
+          className: "nav-megathon",
           position: 'left',
         },
         {
