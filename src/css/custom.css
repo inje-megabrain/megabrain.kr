@@ -29,9 +29,11 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-.nav-megathon {
-  color:#1fa588;
-  font-weight: bold;
-  text-shadow: 0 0 15px rgba(167, 225, 214, 0.7); 
+.navbar-highlight {
+  color: #496EF6; /* highligth  */
+
+  [data-theme='dark'] & {
+    color: #f6e05e;
+  }
 }
 
