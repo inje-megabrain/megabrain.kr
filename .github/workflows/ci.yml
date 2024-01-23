@@ -94,7 +94,7 @@ jobs:
       - name: Update Kubernetes resource
         run: |
           cd apps/megabrain-site/overlays/dev
-          kustomize edit set image ghcr.io/${{ env.REPO }}:${{ secrets.MAJOR_VERSION }}.${{ secrets.NEW_MINOR_VERSION }}
+          kustomize edit set image ghcr.io/${{ env.REPO }}:${{ secrets.MAJOR_VERSION }}.${{ env.NEW_MINOR_VERSION }}
           cat kustomization.yaml
 
       - name: Commit and push changes
