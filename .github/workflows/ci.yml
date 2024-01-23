@@ -53,9 +53,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Get Minor version variable in Repository variable
-        run: echo NEW_MINOR_VERSION=$[${{ secrets.MINOR_VERSION }} + 1] >> $GITHUB_ENV
-
       - name: Build Image and Push
         uses: docker/build-push-action@v2
         with:
@@ -63,17 +60,9 @@ jobs:
           push: true
           target: production
           platform: linux/amd64
-          tags: ghcr.io/${{ env.REPO }}:${{ secrets.MAJOR_VERSION }}.${{ env.NEW_MINOR_VERSION }}
+          tags: ghcr.io/${{ env.REPO }}:${{ secrets.MAJOR_VERSION }}.${{ secrets.MINOR_VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: Update Minor version
-        uses: hmanzur/actions-set-secret@v2.0.0
-        with:
-          name: 'MINOR_VERSION'
-          value: ${{ env.NEW_MINOR_VERSION }}
-          repository: ${{ env.REPO }}
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
 
   kubernetes-resource-update:
     name: Kubernetes resource update
@@ -94,7 +83,7 @@ jobs:
       - name: Update Kubernetes resource
         run: |
           cd apps/megabrain-site/overlays/dev
-          kustomize edit set image ghcr.io/${{ env.REPO }}:${{ secrets.MAJOR_VERSION }}.${{ env.NEW_MINOR_VERSION }}
+          kustomize edit set image ghcr.io/${{ env.REPO }}:${{ secrets.MAJOR_VERSION }}.${{ secrets.MINOR_VERSION }}
           cat kustomization.yaml
 
       - name: Commit and push changes
@@ -104,3 +93,14 @@ jobs:
           git config --global user.email puleugo@gmail.com
           git commit -am "Update k8s image"
           git push -u origin apps/megabrain-site
+      
+      - name: Get Minor version variable in Repository variable
+        run: echo NEW_MINOR_VERSION=$[${{ secrets.MINOR_VERSION }} + 1] >> $GITHUB_ENV
+        
+      - name: Increment Minor version
+        uses: hmanzur/actions-set-secret@v2.0.0
+        with:
+          name: 'MINOR_VERSION'
+          value: ${{ env.NEW_MINOR_VERSION }}
+          repository: ${{ env.REPO }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
