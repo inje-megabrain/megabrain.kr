@@ -76,7 +76,7 @@ const config: Config = {
       },
       items: [
         {
-          to: '/histories',
+          to: '/intro',
           label: '소개',
           position: 'left',
         },
@@ -95,9 +95,9 @@ const config: Config = {
           label: '모집',
           position: 'left',
         },
-        {
-          to: '/activities/megathon/2024',
-          label: '메가톤 2024',
+        { // 주요 행사
+          to: '/recruit',
+          label: '2024 신입회원 모집중!',
           className: "navbar-highlight",
           position: 'left',
         },
