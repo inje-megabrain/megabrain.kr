@@ -37,3 +37,15 @@
   }
 }
 
+/* depth가 2이상인 li의 style*/
+main ul > li > ul{
+  list-style-type: none; /* Remove bullets */
+  padding: 0;
+  margin: 0;
+  li {
+    background-color: lightcyan;
+    [data-theme='dark'] & {
+      background-color: midnightblue;
+    }
+  }
+}
