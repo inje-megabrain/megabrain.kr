@@ -32,20 +32,22 @@
 .navbar-highlight {
   color: #498ef6;
   font-weight: bold;
-  [data-theme='dark'] & {
-    color: #f6e05e;
-  }
+
+}
+[data-theme='dark'] .navbar-highlight {
+  color: #f6e05e;
 }
 
 /* depth가 2이상인 li의 style*/
-main ul > li > ul{
+.docs-doc-page main ul > li > ul {
   list-style-type: none; /* Remove bullets */
   padding: 0;
   margin: 0;
-  li {
-    background-color: lightcyan;
-    [data-theme='dark'] & {
-      background-color: midnightblue;
-    }
-  }
+}
+.docs-doc-page main ul > li > ul > li {
+  background-color: lightcyan;
+}
+
+[data-theme='dark'] main ul > li > ul > li {
+  background-color: midnightblue;
 }
