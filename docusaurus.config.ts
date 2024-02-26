@@ -43,19 +43,15 @@ const config: Config = {
           path: './docs',
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl:
-              'https://github.com/inje-megabrain/megabrain.kr/blob/main/docs/',
+          editUrl: 'https://github.com/inje-megabrain/megabrain.kr/tree/main',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-              'https://github.com/inje-megabrain/megabrain.kr/blob/main/blog/',
+          editUrl: 'https://github.com/inje-megabrain/megabrain.kr/tree/main',
         },
-        theme: {
-          customCss: './src/css/custom.css',
-        },
+        theme: {customCss: './src/css/custom.css',},
       } satisfies Preset.Options,
     ],
   ],
@@ -64,9 +60,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     docs: {
-      sidebar: {
-        autoCollapseCategories: false,
-      }
+      sidebar: {autoCollapseCategories: false,}
     },
     navbar: {
       title: 'Megabrain',
