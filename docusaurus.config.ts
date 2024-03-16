@@ -28,7 +28,7 @@ const config: Config = {
         redirects: [
           {
             from: '/megaton',
-            to: '/activities/megathon/2024',
+            to: '/activities/megathon/2023',
           },
         ],
       },
@@ -89,12 +89,12 @@ const config: Config = {
           label: '모집',
           position: 'left',
         },
-        { // 주요 행사
-          to: '/recruit',
-          label: '2024 신입회원 모집중!',
-          className: "navbar-highlight",
-          position: 'left',
-        },
+        // { // 주요 행사
+        //   to: '/recruit',
+        //   label: '2023 신입회원 모집중!',
+        //   className: "navbar-highlight",
+        //   position: 'left',
+        // },
         {
           href: 'https://github.com/inje-megabrain',
           label: 'Github',
