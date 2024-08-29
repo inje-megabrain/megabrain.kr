@@ -1,0 +1,30 @@
+name: git push into another repo to deploy to vercel
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: pandoc/latex
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install mustache (to update the date)
+        run: apk add ruby && gem install mustache
+      - name: creates output
+        run: sh ./build.sh
+      - name: Pushes to another repository
+        id: push_directory
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.VERCEL_PERSONAL_ACCOUNT_TOKEN }} # Vercel에 등록된 Github 개인 계정의 Repo 접근 권한을 가진 토큰
+        with:
+          source-directory: 'output'
+          destination-github-username: puleugo
+          destination-repository-name: megabrain.kr
+          user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }} # Github Email
+          commit-message: ${{ github.event.commits[0].message }}
+          target-branch: main
+      - name: Test get variable exported by push-to-another-repository
+        run: echo $DESTINATION_CLONED_DIRECTORY
