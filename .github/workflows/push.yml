@@ -24,7 +24,7 @@ jobs:
           destination-github-username: puleugo
           destination-repository-name: megabrain.kr
           user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }} # Github Email
-          commit-message: ${{ github.event.commits[0].message }}
+          commit-message: 'megabrain.kr 동기화'
           target-branch: main
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
