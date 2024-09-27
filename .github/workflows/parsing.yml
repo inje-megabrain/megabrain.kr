@@ -1,0 +1,43 @@
+name: parsing megabrain blog posts
+ 
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+      - cron: "0 19 * * *"
+ 
+jobs:
+  build:
+ 
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Set up chekcout
+      uses: actions/checkout@v2
+
+    - name: Set up node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        npm install
+
+    - name: Run parser
+      run: |
+        node puleugo-parser.js
+        npm build
+
+    - name: Update or add .md file
+      run: | 
+        git pull
+        git add
+        git diff
+        git config --local user.email "ssb50800@gmail.com"
+        git config --local user.name "singhic"
+        git commit -m "Fetch. new blog posts"
+        git push
