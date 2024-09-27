@@ -30,7 +30,6 @@ jobs:
     - name: Run parser
       run: |
         node puleugo-parser.js
-        npm build
 
     - name: Update or add .md file
       run: | 
