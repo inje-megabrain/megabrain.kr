@@ -32,8 +32,8 @@ jobs:
         node puleugo-parser.js
 
     - name: Check if there are any changes
-       id: verify
-       run: |
+      id: verify
+      run: |
         git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
 
     - name: Update or add .md file
