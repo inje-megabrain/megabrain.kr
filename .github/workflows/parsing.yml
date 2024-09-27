@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-      - cron: "0 19 * * *"
+      - cron: "0 20 * * *"
  
 jobs:
   build:
@@ -31,7 +31,13 @@ jobs:
       run: |
         node puleugo-parser.js
 
+    - name: Check if there are any changes
+       id: verify
+       run: |
+        git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+
     - name: Update or add .md file
+      if: steps.verify.outputs.changed == 'true'
       run: | 
         git pull
         git add .
