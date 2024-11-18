@@ -10,7 +10,6 @@ on:
  
 jobs:
   build:
- 
     runs-on: ubuntu-latest
  
     steps:
@@ -39,7 +38,9 @@ jobs:
     - name: Update or add .md file
       if: steps.verify.outputs.changed == 'true'
       run: | 
-        git pull
+        git stash
+        git pull origin master
+        git stash pop
         git add .
         git diff
         git config --local user.email "ssb50800@gmail.com"
