@@ -27,15 +27,68 @@ Full Video
 무엇이 좋은 PR일까요? 예를 들면 "이거 바로 Approve해도 되겠는데?"라는 말이 나올만한 PR이 좋다고 할 수 있겠습니다.  
 좋은 PR을 글쓰기로 비유하면 PR은 문단, Commit은 문장이라고 생각해볼 수 있습니다. 가독성 좋은 글은 하나의 문단에는 하나의 주제, 하나의 문장에는 하나의 내용 만으로 구성됩니다. 글쓰기라고 생각하시면 아래 내용을 이해하기 편할 것입니다. 다시 말하면 문단(주제)이기에 Refactor PR과 Feature PR은 분리하는 것이 좋은 PR입니다.
 
-### 커밋에 흐름 만들기
+## 구체적으로 좋은 PR을 만드는 방법
 
-작업에 들어가기 전에 항상 체크포인트를 만들어야 합니다. 이 작업에 약 2000줄의 코드 변경이 필요하다고 가정했을 때 100줄 단위로 나누었을 때 어떤 흐름이 가장 안전하고 자연스러운지를 미리 설계하는 것이 중요합니다. 나뉜 커밋(작업)들 하나하나가 각 체크포인트라고 부를 수 있겠습니다.  
-팀원이 쌓인 커밋들을 봤을 때 곧바로 이해할 수 있도록 가독성 좋게 구성합니다.
+### 1\. 업무에 Check Point를 먼저 정하기
 
-### 하나의 커밋도 읽기 쉽게
+해결해야할 업무를 수행하기 전 미리 작업을 분리할 수 있는 단위로 쪼갭니다. 한결님의 예시:
 
-한결님은 이를 약 400-500줄 정도로 유지하려고 하십니다. 융통성 있게 하면됩니다. 1000줄 이하라면 더 커지더라도 큰 문제는 없습니다.  
-하지만, <u>테스트코드는 필수적</u>입니다. 한결님이 작성하신 500줄의 코드 변경은 아래와 같이 구성됩니다.
+1. **요구사항 확실하게 하기**: 기획자 혹은 팀원과 커뮤니케이션을 통해 요구사항을 명확히 함.
+2. **대략적인 단계 및 세부사항 작성**:
+   * 세부적으로 모호한 부분 제거.
+   * e.g. Refactor와 Feature는 반드시별도의 단계로 분리되어야 함.
+3. **코딩**: 위 문서화를 기반으로 작업하면 팀원이 이해하기 쉬운 PR이 자연스럽게 만들어짐.
+
+너무 큰 작업인 경우 'Stacked PR'이라는 방법을 활용할 수 있습니다.
+
+### 2\. Stacked PR 활용하기
+
+Stacked PR은 하나의 작업을 여러개의 PR을 활용하여 작업을 쪼개 수행하는 방법을 말합니다.  
+'Stacked'이라는 명칭에 맞게 하나의 큰 PR 내부에 작은 PR을 만든 후 LIFO 순서로 PR이 Merge하는 특징을 가지고 있습니다.
+
+만 번 설명하는 것보다는 보는 게 나을 것 같습니다:
+
+#### Stacked PR 예시
+
+PR이 어떻게 열리고 닫히는지 참고해주세요.  
+Main PR에서 작업 내용이 이해하기 쉽도록 핵심 내용만 보여줍니다. 세부적인 내용은 내부 PR 안에서 작업하면 좋습니다.
+
+```
+PR #1 "feat/movie-list-query-search" // Main PR
+- Commit "feat: add basic movie list query with pagination"
+- Commit "test: add unit tests for basic query functionality"
+* Open PR #2 "feat/search-by-director-title-actor"
+    - Commit "feat: implement search by director name, movie title, and actor ID"
+    - Commit "test: add tests for search functionality"
+    - Commit "refactor: optimize search query structure"
+* Merged PR #2 into #1
+
+* Open PR #3 "feat/filter-by-category"
+    - Commit "feat: implement category filter with 'All Categories' option"
+    - Commit "chore: add category filter validation logic"
+    - Commit "test: add tests for category filter feature"
+    * Open PR #4 "refactor/category-filter-query-details" // Detailed PR for #3
+        - Commit "refactor: move category filter logic into reusable service"
+        - Commit "test: update unit tests for refactored category filter"
+    * Merged PR #4 into #3
+* Merged PR #3 into #1
+
+* Open PR #5 "feat/sort-by-latest-and-viewers"
+    - Commit "feat: add sort by latest release date and viewer count"
+    - Commit "chore: add validation for sort parameters"
+    - Commit "test: add tests for sorting functionality"
+* Merged PR #5 into #1
+
+* Open PR #6 "feat/additional-response-fields"
+    - Commit "feat: include additional fields (movie ID, category, title, director, price, viewers, created date) in response"
+    - Commit "test: validate response fields in integration tests"
+* Merged PR #6 into #1
+```
+
+### 3\. 작은 Code Change를 유지하기
+
+한결님은 이를 약 400-500줄 정도로 유지하려고 하십니다. 1000줄 이하라면 큰 문제는 없습니다.  
+<u>테스트코드는 필수적입니다</u>. 한결님이 작성하신 500줄의 코드 변경은 아래와 같이 구성됩니다.
 
 * 100줄(20%): 기능 변경
 * 400줄(80%): (최대한 많은) 테스트 코드
