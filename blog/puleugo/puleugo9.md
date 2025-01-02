@@ -3,7 +3,11 @@ authors: puleugo
 date: Sun, 29 Dec 2024 17:09:14 +0900
 ---
 
-# Redis는 항상 옳은가? (Redis vs Another Plan)
+# Redis는 항상 옳은가? (Redis vs Another Plans)
+
+![](https://blog.kakaocdn.net/dn/vm3Pl/btsLBjHiNc1/xvEe06pj1IiEpiqQzTk1K0/img.webp)
+
+No Silver Bullet
 
 ## 도입
 
@@ -27,21 +31,22 @@ date: Sun, 29 Dec 2024 17:09:14 +0900
   * 다양한 데이터 타입의 부재
 * MySQL: 구현하기는 편하지만 느리며 서비스가 커지면 큰 트러블 슈팅 문제 발생.
   * 스케일 이슈: 수평적 확장(분산 방식)에서 문제 발생함.
-  * 느린 속도
+  * (비교적)느린 속도
 
 Redis와 비교했을 떄 위와 같은 단점이 있습니다. 현실적으로 MySQL은 좋은 선택지가 아니지만 MemCached와 Dictionary 자류구조와 비교를 해보겠습니다.
 
 ### Redis vs MemCached
 
-둘 다 원격 캐시 서버입니다. 둘을 비교하면 다음과 같습니다.
+둘 다 원격 캐시 서버입니다. 둘을 비교하면 다음과 같습니다.  
+중요한 내용은 밑줄쳐두었습니다.
 
 ||||
-|---|---|---|
+|:---:|:---:|:---:|
 |**기준**|**Redis**|**MemCached**|
 |**설계 철학**|<u>데이터 저장소</u>, <u>고급 캐싱 솔루션</u>|빠르고 <u>단순한 캐싱 솔루션</u>|
 |**속도**|빠름|Redis보다 더 빠름|
-|**데이터 구조 지원**|Array, Set, Hash, Sorted Set etc|Key-Value Only|
-|**데이터 지속성**|File 옵션 제공\- RDB(Redis Database File): 주기적 데이터 스냅샷 저장\- AOF(Append-Only FIle): 쓰기연산을 기록하여 손실 가능성 X|휘발생 메모리 Only|
+|**데이터 구조 지원**|<u>다양한 자료구조 지원</u>(Array, Set, Hash, Sorted Set etc.)|Key-Value(String) Only|
+|**데이터 지속성**|<u>File 옵션 제공</u>\- RDB(Redis Database File): 주기적 데이터 스냅샷 저장\- AOF(Append-Only FIle): 쓰기연산을 기록하여 손실 가능성 X|휘발생 메모리 Only|
 |**메모리 관리**|압축, [LRU](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU), [TTL](https://en.wikipedia.org/wiki/Time_to_live)|LRU Only|
 |**확장성**|<u>Redis Cluster</u> 기능 지원|\-|
 |**기타**|Pub/Sub, Transaction etc|\-|
@@ -53,16 +58,16 @@ Redis와 비교했을 떄 위와 같은 단점이 있습니다. 현실적으로 
 * 단순히 캐싱만 사용할 계획이다. &rarr; MemCached
 * 확장성과 데이터 영속성, 분산 캐시 환경이 필요하다. &rarr; Redis
 
-### MemCached vs Dictionary 자료구조
+### MemCached vs Dictionary 자료구조 기반
 
 간단히 비교해보겠습니다.
 
 ||||
-|---|---|---|
-|기준|MemCached|Dictionary|
-|데이터 공유|여러 서버 인스턴스 간 공유|여러 서버의 캐시 공유 불가능|
-|서비스 규모|분산 서버, 대규모 트래픽의 적합|단일 서버, 소규모 애플리케이션|
-|속도|네트워크 지연 가능성 존재, 다만 빠름|네트워크 지연 없음, 로컬 메모리로 매우 빠름|
+|:---:|:---:|:---:|
+|**기준**|**MemCached**|**Dictionary**|
+|**데이터 공유**|여러 서버 인스턴스 간 공유|여러 서버의 캐시 공유 불가능|
+|**서비스 규모**|분산 서버, 대규모 트래픽의 적합|단일 서버, 소규모 애플리케이션|
+|**속도**|네트워크 지연 가능성 존재, 다만 빠름|네트워크 지연 없음, 로컬 메모리로 매우 빠름|
 
 확장 가능성에 따라 갈리는 선택지:
 
@@ -73,13 +78,15 @@ Redis와 비교했을 떄 위와 같은 단점이 있습니다. 현실적으로 
 
 ## 결론
 
-요약하면 다음과 같습니다. '본인이 돈이 썩어난다.'라는 의견이라면 그냥 Redis를 사용하면 됩니다. 비용 절감 관점도 포함된 의견입니다.
+우선, 모든 상황까지는 아니여도 대부분의 경우 Redis가 정답입니다. 서비스 규모가 커질수록 안정성, 성능을 함께 잡을 수 있는 선택지가 Redis입니다.
 
-* 멀티인스턴스 환경:
-  * 분산 캐시가 필요하다. &rarr; Redis(Redis Cluster)
-  * 단일 캐시로 충분하다. &rarr; MemCached
-* 싱글 인스턴스 환경:
-  * 단순 로컬 캐시 필요하다 &rarr; Dictionary 기반 캐시 라이브러리
-* 서버 필요없다.
-  * 클라이언트 캐시 저장
+하지만, 첫 문장처럼 '은총알은 없기'때문에주어진 상황에 따라 적절히 선택하는 것이 올바를 것 같습니다.작은 규모의 서비스라면 MemCached나 Dictinary 방식도 고려해 볼 만한 선택지입니다.
+
+||||||
+|:---:|:---:|:---:|:---:|:---:|
+|**기준**|**Dictionary**|**MemCached**|**Redis**|**MySQL**|
+|**속도 순위**|1|2|3|
+|**자료구조 지원**|O|X|O|▵|
+|**분산 지원**|X|▵|O|X|
+|**File 저장 지원**|X|X|O|O|
 
